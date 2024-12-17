@@ -6,18 +6,30 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct MapView: View {
+    @StateObject private var locationManager = LocationManager()
+    @StateObject private var mapViewModel: MapViewModel
+    
+    init() {
+        _mapViewModel = StateObject(wrappedValue: MapViewModel(locationManager: LocationManager()))
+    }
+    
     var body: some View {
         NavigationStack{
             VStack {
-                Text("appName")
-                Spacer()
+                if let mapPosition = mapViewModel.location {
+                    Map(position: .constant(mapPosition))
+                        .edgesIgnoringSafeArea(.all)
+                } else {
+                    ProgressView("現在地を取得中...")
+                }
             } // VStack
         } // NavigationStack
     }
 }
 
-#Preview {
-    MapView()
-}
+//#Preview {
+//    MapView()
+//}

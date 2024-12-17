@@ -29,9 +29,22 @@
 		63E4F7CE2D10743300525392 /* FenrirUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FenrirUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		63E4F7FD2D110D4F00525392 /* Exceptions for "Fenrir" folder in "Fenrir" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 63E4F7B32D10743200525392 /* Fenrir */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		63E4F7B62D10743200525392 /* Fenrir */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				63E4F7FD2D110D4F00525392 /* Exceptions for "Fenrir" folder in "Fenrir" target */,
+			);
 			path = Fenrir;
 			sourceTree = "<group>";
 		};
@@ -399,7 +412,7 @@
 				DEVELOPMENT_TEAM = NQD3LAN9FK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				INFOPLIST_FILE = Fenrir/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -430,7 +443,7 @@
 				DEVELOPMENT_TEAM = NQD3LAN9FK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.food-and-drink";
+				INFOPLIST_FILE = Fenrir/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
