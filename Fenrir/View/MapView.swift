@@ -21,7 +21,16 @@ struct MapView: View {
             VStack {
                 if let mapPosition = mapViewModel.location {
                     Map(position: .constant(mapPosition))
-                        .edgesIgnoringSafeArea(.all)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .overlay {
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                LazyHStack(alignment: .bottom) {
+                                    ForEach(mapViewModel.shops) { shop in
+                                        ShopCardView(shop: shop)
+                                    }
+                                }
+                            }
+                        }
                 } else {
                     ProgressView("現在地を取得中...")
                 }
@@ -30,6 +39,6 @@ struct MapView: View {
     }
 }
 
-//#Preview {
-//    MapView()
-//}
+#Preview {
+    MapView()
+}
