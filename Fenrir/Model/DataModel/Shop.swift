@@ -14,18 +14,19 @@ struct Shop: Codable, Identifiable {
     let address: String
     let lat: Double
     let lng: Double
+    let mobileAccess: String
     let open: String
     let close: String
     
     private enum CodingKeys: String, CodingKey {
         case id
         case name
-        case logoImage = "logo_image" // JSONキー名: logo_image → Swiftプロパティ名: logoImage
+        case logoImage = "logo_image"
         case address
         case lat
         case lng
+        case mobileAccess = "mobile_access"
         case open
         case close
     }
-    
 }
