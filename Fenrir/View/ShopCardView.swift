@@ -12,10 +12,26 @@ struct ShopCardView: View {
     
     var body: some View {
         HStack(spacing: 0) {
+            AsyncImage(url: URL(string: shop.logoImage)) { image in
+                image
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .padding()
+                
+            } placeholder: {
+                ProgressView()
+                    .background(
+                        Rectangle()
+                            .frame(width: 100, height: 100)
+                            .foregroundStyle(.gray)
+                    )
+            }
+            
             Rectangle()
-                .frame(width: 100, height: 100)
-                .foregroundStyle(.black)
-                .padding()
+                .frame(width: 1, height: 100)
+                .foregroundStyle(.gray)
             
             VStack(alignment: .leading, spacing: 8) {
                 Text(shop.name)
