@@ -10,7 +10,7 @@ import Foundation
 struct Shop: Codable, Identifiable {
     let id: String
     let name: String
-    let logoImage: String?
+    let logoImage: String
     let address: String
     let lat: Double
     let lng: Double
