@@ -57,6 +57,6 @@ struct ShopCardView: View {
     }
 }
 
-#Preview {
-    ShopCardView(shop: Shop(id: "1", name: "白木屋", logoImage: "a", address: "折尾駅周辺", lat: 33.3, lng: 180.564, mobileAccess: "折尾駅から徒歩２分", open: "16:00~", close: "~23:00"))
-}
+//#Preview {
+//    ShopCardView(shop: Shop(id: "1", name: "白木屋", logoImage: "a", address: "折尾駅周辺", lat: 33.3, lng: 180.564, mobileAccess: "折尾駅から徒歩２分", open: "16:00~", close: "~23:00"))
+//}
