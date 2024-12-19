@@ -26,7 +26,11 @@ struct MapView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 LazyHStack(alignment: .bottom) {
                                     ForEach(mapViewModel.shops) { shop in
-                                        ShopCardView(shop: shop)
+                                        NavigationLink {
+                                            DetailView(shop: shop)
+                                        } label: {
+                                            ShopCardView(shop: shop)
+                                        }
                                     }
                                 }
                             }
@@ -39,6 +43,6 @@ struct MapView: View {
     }
 }
 
-#Preview {
-    MapView()
-}
+//#Preview {
+//    MapView()
+//}
