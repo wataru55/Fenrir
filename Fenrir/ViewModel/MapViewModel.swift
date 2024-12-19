@@ -12,6 +12,7 @@ import Combine
 class MapViewModel: ObservableObject {
     @Published var location: MapCameraPosition?
     @Published var shops: [Shop] = []
+    @Published var message: String = "現在地を取得中..."
     private var cancellable: AnyCancellable?
     
     private let locationManager: LocationManager // 位置情報マネージャ
@@ -25,15 +26,22 @@ class MapViewModel: ObservableObject {
     }
     
     @MainActor
-    func loadShop(range: Int) async {
+    func loadShop(range: Int, retryCount: Int = 3) async {
         guard let latitude = location?.region?.center.latitude,
               let longitude = location?.region?.center.longitude else {
-            print("位置情報が取得できませんでした")
+            if retryCount > 0 {
+                print("位置情報が取得できませんでした。あと\(retryCount)回リトライします...")
+                try? await Task.sleep(nanoseconds: 2 * 1_000_000_000)
+                await loadShop(range: range, retryCount: retryCount - 1)
+            } else {
+                message = "位置情報が取得できませんでした"
+            }
             return
         }
         
         do {
             shops = try await APIService.fetchShop(lat: latitude, lng: longitude, range: range)
+            print("\(shops.count)件の店舗を取得しました")
         } catch {
             print("エラー: \(error)")
         }
