@@ -34,11 +34,17 @@ struct MapView: View {
                                     .background(
                                         Circle()
                                             .foregroundStyle(.orange)
+                                            .overlay {
+                                                Circle()
+                                                    .stroke(lineWidth: 1)
+                                                    .foregroundStyle(.black)
+                                            }
                                     )
-                                
                                     .onTapGesture {
                                         selectedShopId = shop.id
                                     }
+                                    .scaleEffect(selectedShopId == shop.id ? 1.5 : 1.0)
+                                    .animation(.easeInOut, value: selectedShopId)
                             }
                         }
                     }
