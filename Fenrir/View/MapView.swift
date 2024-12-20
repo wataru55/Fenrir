@@ -12,6 +12,8 @@ struct MapView: View {
     @StateObject private var locationManager = LocationManager()
     @StateObject private var mapViewModel: MapViewModel
     
+    @State private var selectedShopId: String?
+    
     init() {
         _mapViewModel = StateObject(wrappedValue: MapViewModel(locationManager: LocationManager()))
     }
@@ -25,15 +27,25 @@ struct MapView: View {
                         UserAnnotation(anchor: .center)
                         
                         ForEach(mapViewModel.shops) { shop in
-                            Marker(coordinate: CLLocationCoordinate2D(latitude: shop.lat, longitude: shop.lng)) {
-                                Text(shop.name)
+                            Annotation(shop.name ,coordinate: CLLocationCoordinate2D(latitude: shop.lat, longitude: shop.lng)) {
                                 Image(systemName: "fork.knife")
+                                    .foregroundStyle(.white)
+                                    .padding(8)
+                                    .background(
+                                        Circle()
+                                            .foregroundStyle(.orange)
+                                    )
+                                
+                                    .onTapGesture {
+                                        selectedShopId = shop.id
+                                    }
                             }
                         }
                     }
                     .mapStyle(.standard(pointsOfInterest: .excludingAll))
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .overlay(alignment: .bottom) {
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .overlay(alignment: .bottom) {
+                        ScrollViewReader { scrollViewProxy in
                             ScrollView(.horizontal, showsIndicators: false) {
                                 LazyHStack(alignment: .bottom) {
                                     ForEach(mapViewModel.shops) { shop in
@@ -42,11 +54,20 @@ struct MapView: View {
                                         } label: {
                                             ShopCardView(shop: shop)
                                         }
+                                        .id(shop.id)
                                     }
                                 }
                             }
                             .frame(height: 150)
+                            .onChange(of: selectedShopId) {
+                                if let id = selectedShopId {
+                                    withAnimation {
+                                        scrollViewProxy.scrollTo(id, anchor: .center)
+                                    }
+                                }
+                            }
                         }
+                    }
                 } else {
                     ProgressView("現在地を取得中...")
                 }
