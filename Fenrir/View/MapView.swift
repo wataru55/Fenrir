@@ -40,6 +40,20 @@ struct MapView: View {
                     ProgressView("現在地を取得中...")
                 }
             } // VStack
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        mapViewModel.updateLocation()
+                    } label: {
+                        HStack(spacing: 0) {
+                            Image(systemName: "mappin.and.ellipse")
+                            
+                            Text("更新")
+                        }
+                    }
+
+                }
+            }
         } // NavigationStack
     }
 }
