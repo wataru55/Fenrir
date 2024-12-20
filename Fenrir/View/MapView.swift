@@ -20,7 +20,18 @@ struct MapView: View {
         NavigationStack{
             VStack {
                 if let mapPosition = mapViewModel.location {
-                    Map(position: .constant(mapPosition))
+                    Map(position: .constant(mapPosition)) {
+                        
+                        UserAnnotation(anchor: .center)
+                        
+                        ForEach(mapViewModel.shops) { shop in
+                            Marker(coordinate: CLLocationCoordinate2D(latitude: shop.lat, longitude: shop.lng)) {
+                                Text(shop.name)
+                                Image(systemName: "fork.knife")
+                            }
+                        }
+                    }
+                    .mapStyle(.standard(pointsOfInterest: .excludingAll))
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .overlay(alignment: .bottom) {
                             ScrollView(.horizontal, showsIndicators: false) {
