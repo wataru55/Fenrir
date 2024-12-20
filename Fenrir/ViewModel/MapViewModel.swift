@@ -47,16 +47,24 @@ class MapViewModel: ObservableObject {
         }
     }
     
+    func updateLocation() {
+        locationManager.requestCurrentLocation()
+    }
+    
     private func setUpSubscriber() {
         self.cancellable = locationManager.$location
             .compactMap { $0 } // nilを除外
-            .map { location in
-                MapCameraPosition.region(MKCoordinateRegion(
+            .sink { [weak self] location in
+                guard let self = self else { return }
+                self.location = .region(MKCoordinateRegion(
                     center: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude),
                     latitudinalMeters: 100.0,
                     longitudinalMeters: 100.0
                 ))
+                
+                Task {
+                    await self.loadShop(range: 2)
+                }
             }
-            .assign(to: \.location, on: self)
     }
 }
